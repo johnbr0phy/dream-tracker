@@ -1,80 +1,86 @@
 # Dream Tracker
 
-A minimal iOS app for capturing dreams the moment you wake up. One tap from the home screen → speak your dream → it's saved, transcribed, and optionally visualized with AI.
+A minimal Flutter app for capturing dreams with voice recording and AI visualization.
 
 ## Features
 
-### Capture
-- **Home screen widget** - Single tap to start recording
-- **Voice recording** with automatic transcription using Apple Speech framework
-- **Dark minimal UI** optimized for half-asleep use
+- **Voice Recording** - Record your dreams with one tap
+- **Speech-to-Text** - Automatic transcription using on-device speech recognition
+- **Dark UI** - Optimized for half-asleep use
+- **AI Visualization** - Generate dreamlike images from your transcripts using DALL-E 3
+- **Local Storage** - All dreams stored locally on your device
+- **Secure** - API keys stored in secure storage
 
-### Storage
-- Local dream history with date, transcript, audio, and generated images
-- Simple list view to browse past dreams
-- SwiftData for persistent storage
+## Getting Started
 
-### AI Generation
-- Generate dreamlike images from transcripts using DALL-E 3
-- User provides their own OpenAI API key
+### Prerequisites
 
-### Settings
-- API key input for OpenAI
-- Secure keychain storage for API keys
+- [Flutter SDK](https://flutter.dev/docs/get-started/install) (3.2.0 or higher)
+- Xcode (for iOS)
+- Android Studio (for Android)
 
-## Requirements
+### Installation
 
-- iOS 17.0+
-- Xcode 15.0+
-- Swift 5.9+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/johnbr0phy/dream-tracker.git
+   cd dream-tracker
+   ```
 
-## Setup
+2. Install dependencies:
+   ```bash
+   flutter pub get
+   ```
 
-1. Open `DreamTracker.xcodeproj` in Xcode
-2. Select your development team in project settings
-3. Build and run on your device
-4. Add the Dream Tracker widget to your home screen
-5. Configure your OpenAI API key in Settings for image generation
+3. Run the app:
+   ```bash
+   # iOS
+   flutter run -d ios
 
-## Usage
+   # Android
+   flutter run -d android
+   ```
 
-1. **Wake from a dream** → tap the home screen widget
-2. App opens directly to the recording screen (minimal dark UI)
-3. **Speak your dream** → tap stop
-4. Audio is transcribed and saved automatically
-5. Browse dream history and generate AI images from any entry
+### iOS Setup
 
-## Architecture
+For iOS, you need to:
+1. Open `ios/Runner.xcworkspace` in Xcode
+2. Set your development team in Signing & Capabilities
+3. Run from Xcode or use `flutter run`
+
+## Project Structure
 
 ```
-DreamTracker/
-├── DreamTrackerApp.swift      # App entry point
-├── ContentView.swift          # Main tab view
-├── Models/
-│   ├── Dream.swift            # SwiftData model
-│   └── AppSettings.swift      # Settings with Keychain storage
-├── Views/
-│   ├── RecordingView.swift    # Voice recording UI
-│   ├── DreamListView.swift    # Dream history list
-│   ├── DreamDetailView.swift  # Dream detail with image gen
-│   └── SettingsView.swift     # API key configuration
-└── Services/
-    ├── DreamStore.swift       # Data persistence
-    ├── AudioRecorder.swift    # AVAudioRecorder wrapper
-    ├── SpeechTranscriber.swift # Speech recognition
-    └── ImageGenerationService.swift # OpenAI DALL-E integration
-
-DreamWidgetExtension/
-├── DreamWidget.swift          # Widget implementation
-└── DreamWidgetBundle.swift    # Widget bundle
+lib/
+├── main.dart                 # App entry point
+├── models/
+│   └── dream.dart           # Dream data model
+├── screens/
+│   ├── home_screen.dart     # Tab navigation
+│   ├── recording_screen.dart # Voice recording UI
+│   ├── dream_list_screen.dart # Dream history
+│   ├── dream_detail_screen.dart # Dream details + AI image
+│   └── settings_screen.dart  # API key configuration
+└── services/
+    ├── database_service.dart # SQLite persistence
+    ├── settings_service.dart # Secure settings storage
+    ├── audio_service.dart    # Recording & playback
+    ├── speech_service.dart   # Speech recognition
+    └── image_generation_service.dart # OpenAI DALL-E
 ```
+
+## Configuration
+
+1. Open the app and go to Settings
+2. Enter your OpenAI API key
+3. Start recording your dreams!
 
 ## Privacy
 
-- All dream data is stored locally on device
-- Audio recordings are saved to the app's Documents directory
-- API keys are stored securely in the iOS Keychain
-- No data is sent to any server except for image generation (using your own API key)
+- All dream data is stored locally on your device
+- Audio recordings are saved to the app's documents directory
+- API keys are stored in secure storage (iOS Keychain / Android EncryptedSharedPreferences)
+- No data is sent anywhere except for image generation (using your own API key)
 
 ## License
 
